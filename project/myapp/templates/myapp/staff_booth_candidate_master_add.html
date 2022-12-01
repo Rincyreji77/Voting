@@ -1,0 +1,45 @@
+{% extends 'myapp/staff_base.html' %}
+{% load static %}
+{% block title %}Booth Candidate Add{% endblock %}
+{% block body %}
+<br><br><br><br><br><br>
+<center>
+    <h2><font color="#366092">Booth Candidate Add</font></h2>
+	<br>
+	<div class="container">
+		 <div class="row">
+        <div class="col"></div>
+            <div class="col">
+    <form name="frm" role="form" action="{% url 'staff_booth_candidate_master_add' %}" method="post" >
+        {% csrf_token %}
+		<input class="form-control" type="hidden"  id="election_booth_master_id"
+               name="election_booth_master_id" value="{{election_booth_master_id}}" required="required">
+
+        <div class="form-group">
+
+            <select class="form-control" id="election_candidate_master_id"  name="election_candidate_master_id">
+		            {% for  l in candidate_list%}
+		        	<option value="{{l.id}}">{{l.fname}} {{l.lname}}</option>
+		            {% endfor %}
+		        </select>
+
+        </div>
+		<br>
+
+
+
+
+
+
+	   <button type="submit" class="btn btn-info" id="bt" name="bt">Add</button>
+        <button type="reset" class="btn btn-info" id="rt" name="rt">Reset</button><br>
+            {{msg}}
+    </form>
+				<br>
+
+	</div>
+			  <div class="col"></div>
+		 </div>
+	</div>
+</center>
+{% endblock %}

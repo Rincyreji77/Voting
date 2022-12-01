@@ -1,0 +1,79 @@
+{% extends 'myapp/staff_base.html' %}
+{% load static %}
+{% block title %}Booth List{% endblock %}
+{% block body %}
+<br><br><br><br><br><br>
+<center>
+    <h2><font color="#366092">Booth View</font></h2>
+<div class="container">
+    <form role="form" name="frm" action="" method="post">
+            {% csrf_token %}
+        <input class="form-control" type="hidden"  id="election_master_id"
+               name="election_master_id" value="{{election_master_id}}" required="required">
+        <table class="table table-striped table-bordered auto-index">
+        <thead>
+            <tr>
+            <th>Sl.No</th>
+             <th>Name</th>
+            <th>Number</th>
+            <th>Address</th>
+            <th>Action</th>
+        </tr>
+            </thead>
+        {% for l in booth_list %}
+            <tbody>
+        <tr class="info ">
+           <td></td>
+            <td>{{ l.booth_name }}</td>
+            <td>{{ l.booth_no }}</td>
+            <td>
+                {{l.addr1}},{{l.addr2}},{{l.addr3}},
+                {% for sl in place_list %}
+                   {% ifequal  sl.id  l.addr4 %}
+                        {{ sl.place_name }}
+                    {% endifequal %}
+                {% endfor %}
+                ,{{l.pincode}}
+            </td>
+
+            <td>
+              <!--  <a href="../admin_booth_master_delete?id={{l.id}}&election_master_id={{l.election_master_id}}"
+                   class="btn btn-danger" role="button">Delete</a> -->
+                <a href="../staff_booth_candidate_master_view?election_booth_master_id={{l.id}}"
+                   class="btn btn-info" role="button">Candidate</a>
+                <a href="../staff_booth_voter_master_view?election_booth_master_id={{l.id}}"
+                   class="btn btn-info" role="button">Voter</a>
+                <!--<a href="../?election_id={{l.id}}" class="btn btn-info" role="button">Candidate</a>
+                <br><br>
+                <a href="../?election_id={{l.id}}" class="btn btn-success" role="button">Vote Count</a>
+                <a href="../?election_id={{l.id}}" class="btn btn-success" role="button">Block Chain</a>
+                -->
+
+
+            </td>
+        </tr>
+        </tbody>
+        {% endfor %}
+        </table>
+        <br/>
+        <a href="../admin_booth_master_add?election_master_id={{election_master_id}}"
+           class="btn btn-info" role="button">Add Booth</a>
+    </form>
+    {{msg}}
+</div>
+</center>
+<style>
+  form
+  {
+    counter-reset: Serial;
+  }
+  table
+  {
+  }
+  .auto-index td:first-child:before
+  {
+    counter-increment: Serial;
+    content:counter(Serial);
+  }
+</style>
+{% endblock %}

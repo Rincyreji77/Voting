@@ -1,0 +1,43 @@
+{% extends 'myapp/admin_base.html' %}
+{% load static %}
+{% block title %}General Info Add{% endblock %}
+{% block body %}
+<br><br><br><br><br><br>
+
+<center>
+    <h1>General Info Add</h1>
+     <div class="container">
+         <div class="row">
+             <div class="col-md-4">
+            </div>
+             <div class="col-md-4">
+                 <br>
+
+    <form role="form" name="frm" action="{% url 'admin_general_info_add'%}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="g_type">Title :</label>
+            <input class="form-control" type="text" name="g_type" id="g_type" value="" required>
+        </div>
+        <br>
+       <div class="form-group">
+            <label for="description">Description :</label>
+           <textarea class="form-control" name="description" id="description" required></textarea>
+        </div>
+        <br>
+       <div class="form-group">
+            <label for="document">Document :</label>
+            <input class="form-control" type="file" name="document" id="document" required>
+        </div>
+        <br>
+       <button type="submit"  class="btn btn-info" id="bt" name="bt">Add</button>
+        <button type="reset" class="btn btn-info" id="rt" name="rt">Clear</button>
+    </form>
+             </div>
+             <div class="col-md-4">
+            </div>
+         </div>
+     </div>
+    <h3>{{msg}}</h3>
+</center>
+{% endblock %}

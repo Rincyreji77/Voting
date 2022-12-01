@@ -1,0 +1,199 @@
+{% extends 'myapp/staff_base.html' %}
+{% load static %}
+{% block title %}New Candidate Registration{% endblock %}
+{% block body %}
+<br><br><br><br>
+<center>
+    <h2>New Candidate Registration</h2>
+	<br>
+	<div class="container">
+		 <div class="row">
+        <div class="col"></div>
+            <div class="col">
+    <form role="form" name="frm" action="{% url 'staff_candidate_add' %}"
+		  method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+	    <input class="form-control" type="hidden"  id="election_master_id" name="election_master_id"
+			   value="{{election_master_id}}" required="required">
+
+
+		 <div class="form-group">
+			<label for="document1">Candidate Picture</label>
+			<input class="form-control" type="file" id="document1" name="document1">
+		</div>
+		<br>
+		<div class="form-group">
+			<label for="document2">Party Logo</label>
+			<input class="form-control" type="file" id="document2" name="document2">
+		</div>
+		<br>
+        <div class="form-group">
+			<label for="fname">Name</label>
+	        <input class="form-control" type="text"  id="fname" name="fname" placeholder="First name" required="required">
+			<label id="fname_error" style="visibility:hidden;color:red;">First Name is Empty</label>
+			<input class="form-control" type="text"  id="lname" name="lname" placeholder="Last name" required="required">
+			<label id="lname_error" style="visibility:hidden;color:red;">Last Name is Empty</label>
+		</div>
+		<br>
+		<div class="form-group">
+			<label for="co_name">Guardian</label>
+	        <input class="form-control" type="text"  id="co_name" name="co_name" placeholder="co_name" required="required">
+			<label id="coname_error" style="visibility:hidden;color:red;"></label>
+			<br>
+			<input class="form-control" type="text"  id="co_relation" name="co_relation" placeholder="co_relation" required="required">
+		</div>
+
+		<br>
+	    <div class="form-group">
+			<label for="addr1">Address</label>
+	        <input class="form-control" type="text"  id="addr1" name="addr1" placeholder="House" >
+			<input class="form-control" type="text"  id="addr2" name="addr2" placeholder="Street" >
+			<input class="form-control" type="text"  id="addr3" name="addr3" placeholder="City" >
+			<input class="form-control" type="text"  id="addr4" name="addr4" placeholder="State" >
+            <input type="text"  class="form-control" id="pincode" name="pincode" placeholder="pincode" >
+			<div class="form-group">
+				<br>
+			 <label for="party_master_id">Party</label>
+			 <select class="form-control" id="party_master_id"  name="party_master_id">
+		            {% for  l in party_list%}
+		        	<option value="{{l.id}}">{{l.party_name}}</option>
+		            {% endfor %}
+		        </select>
+		 </div>
+			<br>
+		<div class="form-group">
+			 <label for="place_id">Place</label>
+			 <select class="form-control" id="place_id"  name="place_id">
+		            {% for  l in place_list%}
+		        	<option value="{{l.id}}">{{l.place_name}}</option>
+		            {% endfor %}
+		        </select>
+		 </div>
+			<br>
+		</div>
+	   <div class="form-group">
+			<label for="contact">Contact</label>
+	        <input type="text"  class="form-control" id="contact" name="contact" placeholder="Enter contact" maxlength="10">
+			<label id="contact_error" style="visibility:hidden;color:red;">Enter a Valid Contact</label>
+		</div>
+		<div class="form-group">
+			<label for="email">Email</label>
+	        <input type="email" class="form-control" id="email" name="email" placeholder="Enter email id"></td>
+			<label id="email_error" style="visibility:hidden;color:red;">enter a valid email</label>
+			<br>
+		</div>
+		<br>
+        <button type="submit" class="btn btn-info" id="bt" name="bt">Add</button>
+        <button type="reset" class="btn btn-info" id="rt" name="rt">Reset</button>
+	    </table>
+		<br>
+    </form>
+	{{msg}}
+	</div>
+			 <div class="col"></div>
+		 </div>
+	</div>
+</center>
+<script>
+	var fname = document.getElementById("fname")
+	function fname_validate(){
+	var pattern = /^[a-zA-Z]*$/;
+	if(fname.value.trim()==""){
+	//alert("Blank Fname")
+	document.getElementById("fname_error").style.visibility="visible"
+	fname.style.border = "solid 2px red"
+	return false();
+	}
+	else{
+	document.getElementById("fname_error").style.visibility="hidden"
+	fname.style.border = "solid 1px green"
+	return true();
+	}
+	}
+	fname.onblur = function(){fname_validate()};
+
+	<!-- Last Name	-->
+	function lname_validate(){
+	var pattern = /^[a-zA-Z]*$/;
+	if(lname.value.trim()==""){
+	//alert("Blank Fname")
+	document.getElementById("lname_error").style.visibility="visible"
+	lname.style.border = "solid 2px red"
+	return false();
+	}
+	else{
+	document.getElementById("lname_error").style.visibility="hidden"
+	lname.style.border = "solid 1px green"
+	return true();
+	}
+	}
+	lname.onblur = function(){lname_validate()};
+
+	 var coname = document.getElementById("co_name")
+	function coname_validate(){
+	if(coname.value.trim()==""){
+	//alert("Blank coname")
+	document.getElementById("coname_error").style.visibility="visible"
+	coname.style.border = "solid 2px red"
+	return false();
+	}
+	else{
+	document.getElementById("coname_error").style.visibility="hidden"
+	coname.style.border = "solid 1px green"
+	return true();
+	}
+	}
+	coname.onblur = function(){coname_validate() };
+
+	<!-- Contact -->
+	var contact = document.getElementById("contact")
+	function contact_validate(){
+	//var phoneno = /^\d{10}$/;
+	var contact = document.frm.contact.value;
+  	if(contact.length<10 || contact.length>10 ){
+  	//alert("Please Enter a Valid Contact.");
+  	document.getElementById("contact_error").style.visibility="visible"
+  	document.getElementById("contact").style.border ="solid 2px red"
+	return false();
+  	//return false;
+  }
+  else if(contact == ""){
+  document.getElementById("contact_error").style.visibility="visible"
+  	document.getElementById("contact").style.border ="solid 2px red"
+	return false();
+  }
+  else{
+  document.getElementById("contact_error").style.visibility="hidden"
+  document.getElementById("contact").style.border ="solid 1px green"
+  return true();
+  }
+  }
+  contact.onblur = function(){contact_validate()};
+
+
+
+ 	<!--EMAIL-->
+  function validateemail()
+{
+var x=document.frm.email.value;
+var atposition=x.indexOf("@");
+var dotposition=x.lastIndexOf(".");
+if (atposition<1 || dotposition<atposition+2 || dotposition+2>=x.length){
+  //alert("Please enter a valid e-mail address \n atpostion:"+atposition+"\n dotposition:"+dotposition);
+  	document.getElementById("email_error").style.visibility="visible"
+  	document.getElementById("email").style.border ="solid 2px red"
+	return false();
+  return false;
+  }
+ else{
+  document.getElementById("email_error").style.visibility="hidden"
+  document.getElementById("email").style.border ="solid 1px green"
+  return true();
+  }
+}
+email.onblur = function(){validateemail() };
+
+
+
+</script>
+{% endblock %}

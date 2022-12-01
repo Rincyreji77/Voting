@@ -1,0 +1,41 @@
+{% extends 'myapp/admin_base.html' %}
+{% load static %}
+{% block title %}Place Add{% endblock %}
+{% block body %}
+<br><br><br><br><br><br>
+
+<center>
+    <h2><font color="#366092">Place Add</font></h2>
+    <br>
+<div class="container">
+    <div class="row">
+        <div class="col"></div>
+            <div class="col">
+    <form role="form" name="frm" action="{% url 'admin_place_master_add' %}" method="post">
+            {% csrf_token %}
+        <input class="form-control" type="hidden"  id="district_id" name="district_id" value="{{district_id}}" required="required">
+        <div class="form-group">
+            <label for="place_name">place_name</label>
+            <input class="form-control" type="text"  id="place_name" name="place_name" placeholder="Enter place_name" required="required">
+        </div>
+        <br>
+         <div class="form-group">
+            <label for="place_code">place_code</label>
+            <input class="form-control" type="text"  id="place_code" name="place_code" placeholder="Enter place_code" required="required">
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="place_type">place_type</label>
+            <input class="form-control" type="text"  id="place_type" name="place_type" placeholder="Enter place_type" required="required">
+        </div>
+        <br>
+        <button type="submit" class="btn btn-info" id="bt" name="bt">Add</button>
+        <button type="reset" class="btn btn-info" id="rt" name="rt">Reset</button>
+            {{msg}}
+    </form>
+</div>
+        <div class="col"></div>
+    </div>
+</div>
+</center>
+{% endblock %}

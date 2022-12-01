@@ -1,0 +1,40 @@
+{% extends 'myapp/staff_base.html' %}
+{% load static %}
+{% block title %}Candidate Search{% endblock %}
+{% block body %}
+
+<center>
+    <br><br><br><br><br><br>
+    <h2><font color="#366092">Candidate Search</font></h2>
+    <br>
+    <div class="container">
+        <div class="row">
+        <div class="col"></div>
+            <div class="col">
+    <form name="frm"  role="form" action="{% url 'staff_candidate_search' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+			 <label for="election_master_id">Election</label>
+			 <select class="form-control" id="election_master_id"  name="election_master_id">
+		            {% for  l in election_list%}
+		        	<option value="{{l.id}}">{{l.election_name}}</option>
+		            {% endfor %}
+		        </select>
+		 </div>
+        <br>
+            <div class="form-group">
+                <label for="fname">First Name</label>
+                <input class="form-control" type="text" name="fname" placeholder="fname" id="fname">
+                <input class="form-control" type="text" name="lname" placeholder="lname" id="lname">
+            </div>
+        <br>
+        <button type="submit" class="btn btn-info" id="bt" name="bt">Search</button>
+        <button type="reset" class="btn btn-info" id="rt" name="rt">Reset</button>
+        {{msg}}
+        </form>
+    </div>
+            <div class="col"></div>
+        </div>
+    </div>
+</center>
+{% endblock %}

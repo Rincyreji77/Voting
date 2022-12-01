@@ -1,0 +1,18 @@
+Block Chain Voting
+-------------------
+1. user_login - id, user_id, uname, passwd, u_type, status
+2. state_master - id, state_name, state_code
+3. district_master - id, district_name, district_code, state_id
+4. place_master - id, place_name, place_code, place_type, district_id
+5. voters_master -  id, voter_no, fname, lname, co_name, co_relation, gender, dob, addr1, addr2, addr3, addr4, pincode, place_id, mobile, email, issue_dt, issue_tm, status
+6. election_master - id, election_name, state_id,election_dt, election_remark, status
+7. election_candidate_master - id, election_master_id, fname, lname, co_name, co_realtion, addr1, addr2, addr3, addr4, pincode, email, mobile, party_master_id, candidate_logo, candidate_pic, issue_dt, issue_tm, status
+8. party_master - id, party_name, party_logo, party_remark, status
+9. election_booth_master - id, election_master_id, booth_name, booth_no, addr1, addr2, addr3, addr4, pincode, status
+10. election_booth_candidate_map - id, election_booth_master_id, election_candidate_master_id, list_position, status
+11. election_booth_file - id, election_booth_master_id, file_name, dt, tm, status
+12. election_booth_duty_master - id, election_booth_master_id, uname, passwd, user_role, status
+13. election_booth_voter_map - id, election_booth_master_id, master_id,voter_id, status
+14. election_booth_vote - id, election_booth_master_id,voters_id, election_candidate_master_id, dt, tm, status
+            
+            

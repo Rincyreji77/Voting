@@ -1,0 +1,43 @@
+{% extends 'myapp/admin_base.html' %}
+{% load static %}
+{% block title %}Party Add{% endblock %}
+{% block body %}
+<br><br><br><br><br><br>
+
+<center>
+    <h2><font color="#366092">Party Add</font></h2>
+    <br>
+	<div class="container">
+		<div class="row">
+        <div class="col"></div>
+            <div class="col">
+    <form name="frm" role="form" action="{% url 'admin_party_master_add' %}"
+		  method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group">
+			<label for="document">Logo</label>
+			<input class="form-control" type="file" id="document" name="document">
+		</div>
+        <br>
+	    <div class="form-group">
+            <label for="party_name">party_name</label>
+            <input class="form-control" type="text"  id="party_name" name="party_name" placeholder="Enter party_name" required="required">
+        </div>
+        <br>
+
+		<div class="form-group">
+            <label for="party_remark">party_remark :</label>
+			<textarea class="form-control"  name="party_remark" id="party_remark"></textarea>
+        </div>
+        <br>
+	   <button type="submit" class="btn btn-info" id="bt" name="bt">Add</button>
+        <button type="reset" class="btn btn-info" id="rt" name="rt">Reset</button>
+            {{msg}}
+    </form>
+	</div>
+			 <div class="col"></div>
+		</div>
+	</div>
+</center>
+{% endblock %}

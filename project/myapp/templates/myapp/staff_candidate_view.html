@@ -1,0 +1,92 @@
+{% extends 'myapp/staff_base.html' %}
+{% load static %}
+{% block title %}{{type}}{% endblock %}
+{% block body %}
+<br><br><br><br><br><br>
+<center>
+    <h1>{{type}}</h1>
+    <div class="container">
+    <form role="form" name="frm" action="" method="post">
+        {% csrf_token %}
+         <input class="form-control" type="hidden"  id="election_master_id" name="election_master_id"
+			   value="{{election_master_id}}" required="required">
+        <table class="table table-striped table-bordered auto-index">
+            <thead>
+            <tr>
+                <th>Sl.No</th>
+                <th>Election </th>
+                <th>Picture</th>
+                <th>Logo</th>
+                <th>Name</th>
+                <th>Guardian</th>
+
+
+                <th>Address</th>
+                <th>Party</th>
+                 <th>Place</th>
+                <th>Contact</th>
+                <th>Email</th>
+                <th>Issue Date/ Time</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            {% for f in candidate_list %}
+            <tbody>
+            <tr>
+                <td></td>
+                {% for sl in election_list %}
+                    {% if sl.id == f.election_master_id %}
+                    <td>{{ sl.election_name }}</td>
+                    {% endif %}
+                    {% endfor %}
+                 <td>
+                    <img src="../static/myapp/media/{{f.candidate_pic }}" width="54" height="54">
+                </td>
+                 <td>
+                    <img src="../static/myapp/media/{{f.candidate_logo }}" width="54" height="54">
+                </td>
+                <td>{{ f.fname }} {{ f.lname }}</td>
+                <td>{{ f.co_name }} {{ f.co_realtion }}</td>
+
+                <td>
+                    {{ f.addr1 }},{{ f.addr2 }},{{ f.addr3 }},{{ f.addr4 }},{{ f.pincode }},
+                </td>
+                    {% for sl in party_list %}
+                    {% if sl.id == f.party_master_id %}
+                    <td>{{ sl.party_name }}</td>
+                    {% endif %}
+                    {% endfor %}
+                {% for sl in place_list %}
+                    {% if sl.id == f.place_id %}
+                    <td>{{ sl.place_name }}</td>
+                    {% endif %}
+                    {% endfor %}
+
+                <td>{{ f.mobile }}</td>
+                <td>{{ f.email }}</td>
+                <td>{{f.issue_dt}}/{{f.issue_tm}}</td>
+                <td><a  href="../staff_candidate_delete?id={{f.id}}&election_master_id={{election_master_id}}" class="btn btn-danger" role="button">Delete</a></td>
+            </tr>
+            <tbody>
+            {% endfor %}
+        </table>
+  <a href="../staff_candidate_add?election_master_id={{election_master_id}}" class="btn btn-primary" role="button">Add Candidate</a>
+    </form>
+    </div>
+    <h3>{{msg}}</h3>
+</center>
+<style>
+  form
+  {
+    counter-reset: Serial;
+  }
+  table
+  {
+  }
+  .auto-index td:first-child:before
+  {
+    counter-increment: Serial;
+    content:counter(Serial);
+  }
+</style>
+{% endblock %}

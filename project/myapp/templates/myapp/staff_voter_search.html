@@ -1,0 +1,29 @@
+{% extends 'myapp/staff_base.html' %}
+{% load static %}
+{% block title %}Voter Search{% endblock %}
+{% block body %}
+<center>
+    <br><br><br><br><br>
+    <h2><font color="#366092">Voter Search</font></h2>
+    <br>
+    <div class="container">
+        <div class="row">
+        <div class="col"></div>
+            <div class="col">
+    <form name="frm"  role="form" action="{% url 'staff_voter_search' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="query">Voters Id</label>
+                <input class="form-control" type="text" name="query" placeholder="query" id="query">
+            </div>
+        <br>
+        <button type="submit" class="btn btn-info" id="bt" name="bt">Search</button>
+        <button type="reset" class="btn btn-info" id="rt" name="rt">Reset</button>
+        {{msg}}
+        </form>
+    </div>
+            <div class="col"></div>
+        </div>
+    </div>
+</center>
+{% endblock %}

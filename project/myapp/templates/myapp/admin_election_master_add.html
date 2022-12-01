@@ -1,0 +1,53 @@
+{% extends 'myapp/admin_base.html' %}
+{% load static %}
+{% block title %}Election Add{% endblock %}
+{% block body %}
+<br><br><br><br><br><br>
+
+<center>
+    <h2><font color="#366092">Election Add</font></h2>
+    <br>
+	<div class="container">
+		 <div class="row">
+        <div class="col"></div>
+            <div class="col">
+    <form name="frm" role="form" action="{% url 'admin_election_master_add' %}" method="post" >
+        {% csrf_token %}
+		<div class="form-group">
+            <label for="election_name">election_name</label>
+            <input class="form-control" type="text"  id="election_name" name="election_name" placeholder="Enter election_name" required="required">
+            <br>
+            <br>
+        </div>
+         <div class="form-group">
+            <label for="election_dt">election_dt</label>
+            <input class="form-control" type="date"  id="election_dt" name="election_dt" placeholder="Enter election_dt" required="required">
+             <br>
+        </div>
+
+		<div class="form-group">
+            <label for="election_remark">election_remark</label>
+             <textarea class="form-control"   id="election_remark" name="election_remark" placeholder="Enter election_remark" required="required"></textarea>
+            <br>
+        </div>
+		<div class="form-group">
+			 <label for="state_id">State</label>
+			 <select class="form-control" id="state_id"  name="state_id">
+		            {% for  l in state_list%}
+		        	<option value="{{l.id}}">{{l.state_name}}</option>
+		            {% endfor %}
+		        </select>
+		 </div>
+    <br>
+
+	   <button type="submit" class="btn btn-info" id="bt" name="bt">Add</button>
+        <button type="reset" class="btn btn-info" id="rt" name="rt">Reset</button><br>
+            {{msg}}
+    </form>
+
+	</div>
+			  <div class="col"></div>
+		 </div>
+	</div>
+</center>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'myapp/admin_base.html' %}
+{% load static %}
+{% block title %}State Add{% endblock %}
+{% block body %}
+<br><br><br><br><br><br>
+
+<center>
+    <h2><font color="#366092">State Add</font></h2>
+    <br>
+<div class="container">
+    <div class="row">
+        <div class="col"></div>
+            <div class="col">
+    <form role="form" name="frm" action="{% url 'admin_state_master_add' %}" method="post">
+            {% csrf_token %}
+        <div class="form-group">
+            <label for="state_name">state_name</label>
+            <input class="form-control" type="text"  id="state_name" name="state_name" placeholder="Enter state_name" required="required">
+        </div>
+        <br>
+         <div class="form-group">
+            <label for="state_code">state_code</label>
+            <input class="form-control" type="text"  id="state_code" name="state_code" placeholder="Enter state_code" required="required">
+        </div>
+        <br>
+        <button type="submit" class="btn btn-info" id="bt" name="bt">Add</button>
+        <button type="reset" class="btn btn-info" id="rt" name="rt">Reset</button>
+            {{msg}}
+    </form>
+</div>
+        <br>
+        <div class="col"></div>
+    </div>
+</div>
+</center>
+{% endblock %}

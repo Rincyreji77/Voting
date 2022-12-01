@@ -1,0 +1,62 @@
+{% extends 'myapp/admin_base.html' %}
+{% load static %}
+{% block title %}Booth Candidate List{% endblock %}
+{% block body %}
+<br><br><br><br><br>
+
+<center>
+    <h2><font color="#366092">Booth Candidate View</font></h2>
+    <br>
+<div class="container">
+    <form role="form" name="frm" action="" method="post">
+            {% csrf_token %}
+        <input class="form-control" type="hidden"  id="election_booth_master_id"
+               name="election_booth_master_id" value="{{election_booth_master_id}}" required="required">
+        <table class="table table-striped table-bordered auto-index">
+        <thead>
+            <tr>
+            <th>Sl.No</th>
+             <th>Name</th>
+            <th>Picture</th>
+            <th>Logo</th>
+        </tr>
+            </thead>
+        {% for l in booth_candidate_list %}
+            <tbody>
+        <tr class="info ">
+           <td></td>
+            {% for c in candidate_list %}
+
+				{% if c.id == l.election_candidate_master_id %}
+					<td>{{ c.fname }}{{ c.lname }}</td>
+                    <td><img src="../static/myapp/media/{{c.candidate_pic }}" width="100" height="100"></td>
+                    <td><img src="../static/myapp/media/{{c.candidate_logo }}" width="100" height="100"></td>
+				{% endif %}
+			{% endfor %}
+
+
+        </tr>
+        </tbody>
+        {% endfor %}
+        </table>
+        <br/>
+
+    </form>
+    {{msg}}
+</div>
+</center>
+<style>
+  form
+  {
+    counter-reset: Serial;
+  }
+  table
+  {
+  }
+  .auto-index td:first-child:before
+  {
+    counter-increment: Serial;
+    content:counter(Serial);
+  }
+</style>
+{% endblock %}

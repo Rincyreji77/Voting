@@ -1,0 +1,33 @@
+{% extends 'myapp/admin_base.html' %}
+{% load static %}
+{% block title %}District Add{% endblock %}
+{% block body %}
+<br><br><br><br><br><br>
+
+<center>
+    <h2><font color="#366092">District Add</font></h2>
+<div class="container">
+    <div class="row">
+        <div class="col"></div>
+            <div class="col">
+    <form role="form" name="frm" action="{% url 'admin_district_master_add' %}" method="post">
+            {% csrf_token %}
+        <input class="form-control" type="hidden"  id="state_id" name="state_id" value="{{state_id}}" required="required">
+        <div class="form-group">
+            <label for="district_name">district_name</label>
+            <input class="form-control" type="text"  id="district_name" name="district_name" placeholder="Enter district_name" required="required">
+        </div>
+         <div class="form-group">
+            <label for="district_code">district_code</label>
+            <input class="form-control" type="text"  id="district_code" name="district_code" placeholder="Enter district_code" required="required">
+        </div>
+        <button type="submit" class="btn btn-info" id="bt" name="bt">Add</button>
+        <button type="reset" class="btn btn-info" id="rt" name="rt">Reset</button>
+            {{msg}}
+    </form>
+</div>
+        <div class="col"></div>
+    </div>
+</div>
+</center>
+{% endblock %}

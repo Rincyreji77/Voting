@@ -1,0 +1,96 @@
+{% extends 'myapp/admin_base.html' %}
+{% load static %}
+{% block title %}Booth Add{% endblock %}
+{% block body %}
+<br><br><br><br>
+
+<center>
+    <h2><font color="#366092">Booth Add</font></h2>
+    <br>
+	<div class="container">
+		 <div class="row">
+        <div class="col"></div>
+            <div class="col">
+    <form name="frm" role="form" action="{% url 'admin_booth_master_add' %}" method="post" >
+        {% csrf_token %}
+		<input class="form-control" type="hidden"  id="election_master_id"
+               name="election_master_id" value="{{election_master_id}}" required="required">
+
+        <div class="form-group">
+            <label for="booth_name">booth_name</label>
+            <input class="form-control" type="text"  id="booth_name"
+                   name="booth_name" placeholder="Enter booth_name" required="required">
+        </div>
+            <br>
+
+         <div class="form-group">
+            <label for="booth_no">booth_no</label>
+            <input class="form-control" type="text"  id="booth_no"
+                   name="booth_no" placeholder="Enter booth_no" required="required">
+        </div>
+            <br>
+
+        <div class="form-group">
+            <label for="addr1">Address</label>
+            <input class="form-control" type="text"  id="addr1" name="addr1" placeholder="Enter addr1" required="required">
+            <br>
+            <input class="form-control" type="text"  id="addr2" name="addr2" placeholder="Enter addr2" required="required">
+            <br>
+            <input class="form-control" type="text"  id="addr3" name="addr3" placeholder="Enter addr3" required="required">
+            <br>
+            <select class="form-control" id="addr4"  name="addr4">
+		            {% for  l in place_list%}
+		        	<option value="{{l.id}}">{{l.place_name}}</option>
+
+		            {% endfor %}
+		        </select>
+            <br>
+            <input type="text"  class="form-control" id="pincode" name="pincode" placeholder="pincode" maxlength="6">
+			<label id="pin_error" style="visibility:hidden;color:red;">Enter a Valid Pin</label>
+        </div>
+
+
+    <br>
+
+
+	   <button type="submit" class="btn btn-info" id="bt" name="bt">Add</button>
+        <button type="reset" class="btn btn-info" id="rt" name="rt">Reset</button><br>
+            {{msg}}
+    </form>
+
+	</div>
+			  <div class="col"></div>
+		 </div>
+	</div>
+</center>
+<script>
+
+    <!-- PIN -->
+var pincode = document.getElementById("pincode")
+function pin_validate(){
+	var phoneno = /^\d{10}$/;
+	var pincode = document.frm.pincode.value;
+  	if(pincode.length<6 || pincode.length>6 ){
+  	//alert("Pin must be at least 6 characters long.");
+  	document.getElementById("pin_error").style.visibility="visible"
+  	document.getElementById("pincode").style.border ="solid 2px red"
+	return false();
+  	//return false;
+  }
+  else if(pincode == ""){
+  document.getElementById("pin_error").style.visibility="visible"
+  	document.getElementById("pincode").style.border ="solid 2px red"
+	return false();
+  }
+  else{
+  document.getElementById("pin_error").style.visibility="hidden"
+  document.getElementById("pincode").style.border ="solid 1px green"
+
+	return true();
+  }
+  }
+  pincode.onblur = function(){pin_validate()};
+
+
+</script>
+{% endblock %}

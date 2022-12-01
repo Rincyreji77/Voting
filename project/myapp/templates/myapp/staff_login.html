@@ -1,0 +1,49 @@
+{% extends 'myapp/base2.html' %}
+{% load static %}
+{% block title %}Staff Login{% endblock %}
+{% block body %}
+<center>
+    <br><br><br><br><br><br><br>
+    <div class="container position-relative" data-aos="zoom-in" data-aos-delay="100">
+     <h2 style="color:black">Staff Login</h2>
+        <img src="{% static 'myapp/images/person.png'%}" width="150" height="150">
+    <div class="container">
+         <div class="row">
+        <div class="col"></div>
+            <div class="col">
+        <form role="form" name="frm" action="{% url 'staff_login' %}"  method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="uname" style="color:black">User Name</label>
+                <input class="form-control" type="text" id="uname" name="uname">
+                <br>
+            </div>
+             <div class="form-group">
+                 <label for="uname" style="color:black">Password</label>
+                 <input class="form-control" type="password" id="passwd" name="passwd">
+                 <br>
+             </div>
+            <button type="submit" class="btn btn-info" id="bt" name="bt" style="background-color:white" >Login</button>
+            <button type="reset" class="btn btn-info" id="rt" name="rt" style="background-color:white">Reset</button>
+
+            <br/>
+
+        </form>
+    {{msg}}
+    </div>
+             <div class="col"></div>
+         </div>
+    </div>
+</center>
+<style>
+body {
+  width: 100%;
+  height: 80vh;
+  background: url("{% static './myapp/assets/img/vot1.png'%}") top center;
+  background-size: cover;
+  position: relative;
+}
+</style>
+
+<br><br><br><br><br><br><br><br>
+{% endblock %}
